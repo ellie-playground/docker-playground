@@ -1,0 +1,6 @@
+FROM ubuntu:20.04
+
+RUN mkdir copy_test
+# 유저 및 그룹을 생성하지 않으면 chown 옵션이 적용되지 않는다.
+RUN groupadd -r hello && useradd -r -g hello hello
+COPY --chown=hello:hello test.tar.gz copy_test/

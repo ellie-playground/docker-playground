@@ -1,0 +1,6 @@
+FROM ubuntu:20.04
+
+RUN mkdir add_test
+RUN groupadd -r hello && useradd -r -g hello hello
+#ADD --chown=hello:hello test.tar.gz add_test/
+ADD --chown=hello:hello add_only.txt add_test/

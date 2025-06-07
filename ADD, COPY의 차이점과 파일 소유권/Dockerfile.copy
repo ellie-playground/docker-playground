@@ -1,0 +1,4 @@
+FROM ubuntu:20.04
+
+RUN mkdir copy_test
+COPY test.tar.gz copy_test/
