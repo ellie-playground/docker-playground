@@ -59,6 +59,23 @@ root@3953f7d27681:/copy_test# ls
 
 ## ADD와 COPY의 파일 권한
 
+### COPY의 파일 권한
+
+앞서 `COPY`한 파일의 소유자는 다음과 같다.
+
+```docker
+root@6a7d44bb04aa:/copy_test# ll
+total 12
+drwxr-xr-x 1 root root 4096 Jun  6 14:37 ./
+drwxr-xr-x 1 root root 4096 Jun  7 08:32 ../
+-rw-r--r-- 1 root root  228 Jun  6 14:27 test.tar.gz
+```
+
+`COPY`는 `ADD`와 달리 단순히 파일 자체를 복사하는데, 기본적으로 컨테이너 내 `root:root` 소유자로 복사된다.
+
+> All files and directories copied from the build context are created with a UID and GID of `0` unless the optional `--chown` flag specifies a given username, groupname, or UID/GID combination to request specific ownership of the copied content.
+> 
+
 ### ADD의 파일 권한
 
 앞서 `ADD`한 파일의 소유자는 다음과 같다.
@@ -103,22 +120,15 @@ drwxr-xr-x 1 root  root  4096 Jun  7 09:02 ../
 -rw-r--r-- 1 hello hello   32 Jun  7 09:01 add_only.txt
 ```
 
-### COPY의 파일 권한
-
-앞서 `COPY`한 파일의 소유자는 다음과 같다.
+그러나, 압축 파일이 아닌 일반 파일의 경우, `COPY`와 동일하게 `root:root` 권한으로 들어간다.
 
 ```docker
-root@6a7d44bb04aa:/copy_test# ll
+root@866a293e53a2:/add_test# ll
 total 12
-drwxr-xr-x 1 root root 4096 Jun  6 14:37 ./
-drwxr-xr-x 1 root root 4096 Jun  7 08:32 ../
--rw-r--r-- 1 root root  228 Jun  6 14:27 test.tar.gz
+drwxr-xr-x 1 root root 4096 Jun  7 09:31 ./
+drwxr-xr-x 1 root root 4096 Jun  7 09:32 ../
+-rw-r--r-- 1 root root   32 Jun  7 09:01 add_only.txt
 ```
-
-`COPY`는 `ADD`와 달리 단순히 파일 자체를 복사하는데, 기본적으로 컨테이너 내 `root:root` 소유자로 복사된다.
-
-> All files and directories copied from the build context are created with a UID and GID of `0` unless the optional `--chown` flag specifies a given username, groupname, or UID/GID combination to request specific ownership of the copied content.
-> 
 
 ### 소유자 권한 변경하기
 

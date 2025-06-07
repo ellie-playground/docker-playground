@@ -1,4 +1,5 @@
 FROM ubuntu:20.04
 
 RUN mkdir add_test
-ADD test.tar.gz add_test/
+# ADD test.tar.gz add_test/
+ADD add_only.txt add_test/
