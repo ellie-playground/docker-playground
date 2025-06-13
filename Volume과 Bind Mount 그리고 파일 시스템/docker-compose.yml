@@ -1,0 +1,10 @@
+version: "3"
+services:
+  volume_test:
+    build: .
+    privileged: true
+    tty: true   # 컨테이너에 가상 터미널 할당
+    stdin_open: true   # 표준 입력
+    volumes:
+      # 호스트 경로:도커 경로
+      - "/Users/hee/Desktop/repository/docker-playground/Volume과 Bind Mount 그리고 파일 시스템/test:/test"
