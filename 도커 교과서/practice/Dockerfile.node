@@ -1,0 +1,16 @@
+FROM diamol/node AS builder
+
+WORKDIr /src
+COPY src/package.json .
+
+RUN npm install
+
+FROM diamol/node
+
+EXPOSE 80
+
+CMD ["node", "server.js"]
+
+WORKDIR /app
+COPY --from=builder /src/node_modules ./node_modules
+COPY src/ .
