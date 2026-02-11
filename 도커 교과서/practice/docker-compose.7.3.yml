@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  todo-db:
+    image: diamol/postgres:11.5
+    ports:
+      - "5433:5432"
+    networks:
+      - app-net
+
+  todo-web:
+    image: diamol/ch06-todo-list
+    ports:
+      - "8030:80"
+    # 컨테이너 안에서 사용될 환경 변수의 값이 정의된다. 애플리케이션이 실행되면 컨테이너 안의 환경변수 Database:Provider의 값이 postgres로 설정된다.
+    environment:
+      - Database:Provider=Postgres
+    depends_on:
+      - todo-db
+    networks:
+      - app-net
+    # 실행 시 컨테이너 내부의 파일에 기록될 비밀값을 지정한다. 이 애플리케이션이 실행되면 컨테이너에 /app/config/secrets.json 파일이 생기고,
+    # 이 파일에는 postgres-connection이라는 이름의 비밀값의 값이 기록된다.
+    secrets:
+      - source: postgres-connection
+        target: /app/config/secrets.json
+
+networks:
+  app-net:
+
+secrets:
+  postgres-connection:
+    file: ./config/secrets.json
