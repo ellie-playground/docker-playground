@@ -1,0 +1,3 @@
+service:
+  todo-web:
+    image: diamol/ch06-todo-list:v2
