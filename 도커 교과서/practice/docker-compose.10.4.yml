@@ -1,0 +1,12 @@
+services:
+  todo-web:
+    ports:
+      - 8089:80
+    environment:
+      - Database:Provide=Sqlite
+    env_file:
+      - ./config/logging.debug.env
+
+secrets:
+  todo-db-connection:
+    file: ./config/empty.json
