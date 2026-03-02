@@ -28,8 +28,11 @@ services:
     networks:
       - app-net
 
+# 컨피그 객체 자체를 정의한 것
 configs:
   todo-list-config:
+  # external 플래그는 해당 리소스가 이미 클러스터에 저장돼 있음을 의미한다.
+  # 배포 워크플로는 컨피그 객체를 먼저 배포하고 그 다음에 애플리케이션을 배포하도록 돼 있다.
     external: true
 
 networks:
